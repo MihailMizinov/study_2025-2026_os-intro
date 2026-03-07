@@ -24,7 +24,9 @@
 
 Отчёт Лабораторной работы 2 в md
 
+
 ![1 рисунок](images/1.png)
+
 <p align="center">Риcунок 1 - Отчёт в md</p>
 
 ---
@@ -33,14 +35,19 @@
 
 Преобразование отчёта Лабораторной работы 2 в docx и pdf через pandoc
 
+
+
 ![2 рисунок](images/3.png)
+
 <p align="center">Риcунок 2 - md в docx через pandoc</p>
 
 ---
 
 Результат в word
 
+
 ![3 рисунок](images/2.png)
+
 <p align="center">Риcунок 3 - Результат в word</p>
 
 ---

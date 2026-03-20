@@ -1,0 +1,311 @@
+<h1
+id="настройка-tcsh-специфика-конфигурации-в-сравнении-с-bash">Настройка
+tcsh: специфика конфигурации в сравнении с bash</h1>
+<h3 id="мизинов-михаил-георгиевич">Мизинов Михаил Георгиевич</h3>
+<p>Студент 1 курса, группа НКАбд-04-25<br />
+Российский университет дружбы народов (РУДН)<br />
+Факультет физико-математических и есстественных наук</p>
+<h3 id="кулябов-дмитрий-сергеевич">Кулябов Дмитрий Сергеевич</h3>
+<p>д-р физ.-мат. наук, профессор</p>
+<hr />
+<h2 id="информация-о-докладчике">Информация о докладчике</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Мизинов Михаил
+Георгиевич</strong> <br> <em>(1 курс, НКАбд-04-25)</em> <br><br>
+<strong>Направление:</strong> Прикладная математика и информатика
+<br><br> <strong>Область интересов:</strong> <br> Операционные системы
+UNIX <br> Администрирование вычислительных сетей <br> Скриптовые
+языки</td>
+<td style="text-align: left;"><img src="images/1.jpg" alt="Фото" /></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="введение">Введение</h2>
+<p><strong>Shell</strong> - это программа, которая связывает
+пользователя с операционной системой.</p>
+<p>Есть два главных семейства: - <strong>Bourne shell (sh)</strong> и
+его потомки: bash, zsh - <strong>C shell (csh)</strong> и его потомки:
+tcsh</p>
+<p><strong>Bash</strong> — самый популярный, стоит почти на всех
+Linux.<br />
+<strong>Tcsh</strong> — улучшенная версия C shell, используется в
+FreeBSD и старых Unix.</p>
+<hr />
+<h2 id="зачем-сравнивать-tcsh-и-bash">Зачем сравнивать tcsh и bash?</h2>
+<p>Вы привыкли к bash, но зашли на сервер FreeBSD - а там tcsh.<br />
+Или наоборот, работаете в научной лаборатории, где исторически
+используют tcsh.</p>
+<p><strong>Проблема:</strong> команды и настройки, которые работают в
+bash, в tcsh могут вызвать ошибки.</p>
+<p><strong>Цель доклада:</strong> показать основные отличия в настройке,
+чтобы избежать путаницы.</p>
+<hr />
+<h2 id="цель-и-задачи">Цель и задачи</h2>
+<p><strong>Цель:</strong> понять, чем настройка tcsh отличается от bash,
+и как переносить свои конфиги из одной оболочки в другую.</p>
+<p><strong>Задачи:</strong> 1. Посмотреть, какие файлы настроек
+используют tcsh и bash. 2. Сравнить, как задаются переменные окружения.
+3. Разобраться с алиасами и приглашением командной строки. 4. Увидеть
+разницу в автодополнении. 5. Собрать плюсы и минусы каждой оболочки.</p>
+<hr />
+<h2 id="конфигурационные-файлы">Конфигурационные файлы</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Что делаем</th>
+<th style="text-align: left;">bash</th>
+<th style="text-align: left;">tcsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Глобальные настройки (все
+пользователи)</td>
+<td style="text-align: left;"><code>/etc/profile</code>,
+<code>/etc/bash.bashrc</code></td>
+<td style="text-align: left;"><code>/etc/csh.cshrc</code>,
+<code>/etc/csh.login</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Личные настройки (каждый раз при
+входе)</td>
+<td style="text-align: left;"><code>~/.bashrc</code></td>
+<td style="text-align: left;"><code>~/.tcshrc</code> (или
+<code>~/.cshrc</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Личные настройки (только при логине)</td>
+<td style="text-align: left;"><code>~/.bash_profile</code> или
+<code>~/.profile</code></td>
+<td style="text-align: left;"><code>~/.login</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">При выходе</td>
+<td style="text-align: left;"><code>~/.bash_logout</code></td>
+<td style="text-align: left;"><code>~/.logout</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>В tcsh разделение удобнее:</strong> <code>.tcshrc</code> —
+для алиасов и поведения, <code>.login</code> — для переменных
+окружения.</p>
+<hr />
+<h2 id="переменные-окружения">Переменные окружения</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Действие</th>
+<th style="text-align: left;">bash</th>
+<th style="text-align: left;">tcsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Создать локальную переменную</td>
+<td style="text-align: left;"><code>name="Misha"</code></td>
+<td style="text-align: left;"><code>set name = "Misha"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Создать глобальную переменную (доступна
+везде)</td>
+<td style="text-align: left;"><code>export name="Misha"</code></td>
+<td style="text-align: left;"><code>setenv name "Misha"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Добавить папку в PATH</td>
+<td style="text-align: left;"><code>export PATH=$PATH:~/bin</code></td>
+<td style="text-align: left;"><code>setenv PATH $PATH:~/bin</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="алиасы-короткие-имена-для-команд">Алиасы (короткие имена для
+команд)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">bash</th>
+<th style="text-align: left;">tcsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>alias ll='ls -la'</code></td>
+<td style="text-align: left;"><code>alias ll 'ls -la'</code> (пробел
+вместо <code>=</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Для команд с аргументами нужна
+функция</td>
+<td style="text-align: left;">Можно использовать <code>\!*</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="автодополнение-tab">Автодополнение (Tab)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Возможность</th>
+<th style="text-align: left;">bash</th>
+<th style="text-align: left;">tcsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Дополнение команд</td>
+<td style="text-align: left;">Только имена файлов, надо ставить
+<code>bash-completion</code></td>
+<td style="text-align: left;">Всё из коробки</td>
+</tr>
+<tr>
+<td style="text-align: left;">Исправление опечаток</td>
+<td style="text-align: left;">Нет</td>
+<td style="text-align: left;">Есть
+(<code>set complete = enhance</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Список вариантов</td>
+<td style="text-align: left;">Настраивается</td>
+<td style="text-align: left;"><code>set autolist</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Полезные настройки для tcsh:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode tcsh"><code class="sourceCode tcsh"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> <span class="kw">complete</span> = <span class="kw">(</span>enhance <span class="kw">complete)</span>                        </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> correct = cmd      </span></code></pre></div>
+<hr />
+<h2 id="синтаксис-скриптов-главные-отличия">Синтаксис скриптов: главные
+отличия</h2>
+<h3 id="условие">Условие</h3>
+<p><strong>bash:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="va">$days</span> <span class="ot">-gt</span> 365 <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">&quot;Больше года&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div>
+<p><strong>tcsh:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode tcsh"><code class="sourceCode tcsh"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">(</span> <span class="ot">$days</span> <span class="ot">&gt;</span> 365 <span class="kw">)</span> <span class="cf">then</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">echo</span> <span class="st">&quot;Больше года&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span></code></pre></div>
+<h3 id="цикл-по-файлам">Цикл по файлам</h3>
+<p><strong>bash:</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="pp">*</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$i</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p><strong>tcsh:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode tcsh"><code class="sourceCode tcsh"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">foreach</span> i <span class="kw">(</span>*<span class="kw">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">echo</span> <span class="ot">$i</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div>
+<hr />
+<h2 id="плюсы-и-минусы">Плюсы и минусы</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">bash</th>
+<th style="text-align: left;">tcsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Плюсы</strong></td>
+<td style="text-align: left;">Чаще используеться<br> Огромное
+сообщество</td>
+<td style="text-align: left;">Удобное автодополнение из коробки<br>
+Исправление опечаток<br> Логичные файлы настроек</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Минусы</strong></td>
+<td style="text-align: left;">Автодополнение надо донастраивать</td>
+<td style="text-align: left;">Меньше распространён<br> Синтаксис для
+скриптов сложнее (легко ошибиться с пробелами)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="пример-минимального-.tcshrc">Пример минимального .tcshrc</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode tcsh"><code class="sourceCode tcsh"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> <span class="kw">complete</span> = <span class="kw">(</span>enhance <span class="kw">complete)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> autolist</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> correct = cmd</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> <span class="kw">history</span> = 1000</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> savehist = <span class="kw">(</span>1000 merge<span class="kw">)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">alias</span> ll <span class="st">&#39;ls -la&#39;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">alias</span> h  <span class="st">&#39;history&#39;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">setenv</span><span class="ot"> </span>PATH<span class="ot"> $PATH</span>:~/bin</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> prompt = <span class="st">&#39;%B%n@%m%b:%~ %# &#39;</span></span></code></pre></div>
+<hr />
+<h2 id="выводы">Выводы</h2>
+<ol type="1">
+<li><p><strong>Главные отличия</strong> tcsh от bash — в синтаксисе:</p>
+<ul>
+<li><code>setenv</code> вместо <code>export</code> (и без
+<code>=</code>)</li>
+<li>пробелы имеют значение</li>
+<li>промпт через <code>%</code>, а не <code>\u</code></li>
+<li>автодополнение работает сразу</li>
+</ul></li>
+<li><p><strong>Для интерактивной работы</strong> tcsh удобнее благодаря
+встроенным фичам.</p></li>
+<li><p><strong>Для скриптов</strong> лучше использовать bash — он
+понятнее и переносимее.</p></li>
+<li><p><strong>Зная таблицы соответствия</strong>, вы легко перейдёте с
+одной оболочки на другую.</p></li>
+</ol>
+<hr />
+<h2 id="список-использованных-источников">Список использованных
+источников</h2>
+<ol type="1">
+<li>Использовать минимальный shell (sh) вместо полнофункционального
+(bash, zsh и т.д.). — [Redit](<a
+href="https://www.reddit.com/r/linuxquestions/comments/n754tw/use_minimal_shell_sh_instead_of_fullfeatured/?tl=ru">https://habr.com/ru/post/154187/</a></li>
+<li>siberianMan. О разных командных оболочках Linux и Unix // Хабр,
+2012. — <a
+href="https://habr.com/ru/post/154187/">habr.com/ru/post/154187</a></li>
+</ol>
+<hr />
+<h2 id="спасибо-за-внимание">Спасибо за внимание!</h2>
+<p><strong>Автор:</strong> Мизинов Михаил Георгиевич, НКАбд-04-25<br />
+<strong>Научный руководитель:</strong> д.ф.-м.н., профессор Кулябов
+Д.С.</p>
+<figure>
+<img src="images/2.jpg" alt="РУДН" />
+<figcaption aria-hidden="true">РУДН</figcaption>
+</figure>
+<hr />
